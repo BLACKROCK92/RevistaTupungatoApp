@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 7226e70e52ece894180bc1c4781d3145
+timeCreated: 1490222811
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Patua One
+  fontNames:
+  - Patua One
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
