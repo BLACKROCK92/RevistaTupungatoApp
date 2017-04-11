@@ -8,7 +8,7 @@ public class CameraHandler : MonoBehaviour
     private static readonly float ZoomSpeedTouch = 0.3f;
     private static readonly float ZoomSpeedMouse = 0.5f;
 
-    private static readonly float[] BoundsX = new float[] { -0.5f, 0.5f };
+    private static readonly float[] BoundsX = new float[] { -0.3f, 0.3f };
     private static readonly float[] BoundsY = new float[] { -1.5f, 1.5f };
     private static readonly float[] ZoomBounds = new float[] { 1f, 5f };
 
@@ -48,19 +48,21 @@ public class CameraHandler : MonoBehaviour
                 // If the touch began, capture its position and its finger ID.
                 // Otherwise, if the finger ID of the touch doesn't match, skip it.
                 Touch touch = Input.GetTouch(0);
-                if (touch.phase == TouchPhase.Began)
+                if (touch.phase == TouchPhase.Began && cam.orthographicSize < 3f)
                 {
                     lastPanPosition = touch.position;
                     panFingerId = touch.fingerId;
                 }
-                else if (touch.fingerId == panFingerId && touch.phase == TouchPhase.Moved)
+                else if (touch.fingerId == panFingerId && touch.phase == TouchPhase.Moved )
                 {
                     PanCamera(touch.position);
                 }
                 break;
 
             case 2: // Zooming
+
                 Vector2[] newPositions = new Vector2[] { Input.GetTouch(0).position, Input.GetTouch(1).position };
+
                 if (!wasZoomingLastFrame)
                 {
                     lastZoomPositions = newPositions;
@@ -70,6 +72,7 @@ public class CameraHandler : MonoBehaviour
                 {
                     // Zoom based on the distance between the new positions compared to the 
                     // distance between the previous positions.
+
                     float newDistance = Vector2.Distance(newPositions[0], newPositions[1]);
                     float oldDistance = Vector2.Distance(lastZoomPositions[0], lastZoomPositions[1]);
                     float offset = newDistance - oldDistance;
@@ -94,7 +97,7 @@ public class CameraHandler : MonoBehaviour
         {
             lastPanPosition = Input.mousePosition;
         }
-        else if (Input.GetMouseButton(0))
+        else if (Input.GetMouseButton(0) && cam.orthographicSize < 3f)
         {
             PanCamera(Input.mousePosition);
         }
