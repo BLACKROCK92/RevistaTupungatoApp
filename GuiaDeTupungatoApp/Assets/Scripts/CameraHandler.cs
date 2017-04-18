@@ -5,7 +5,7 @@ public class CameraHandler : MonoBehaviour
 {
 
     private static readonly float PanSpeed = 10f;
-    private static readonly float ZoomSpeedTouch = 0.3f;
+    private static readonly float ZoomSpeedTouch = 0.01f;
     private static readonly float ZoomSpeedMouse = 0.5f;
 
     private static readonly float[] BoundsX = new float[] { -0.3f, 0.3f };
