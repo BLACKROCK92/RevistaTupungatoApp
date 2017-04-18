@@ -63,7 +63,7 @@ public class CameraHandler : MonoBehaviour
 
                 Vector2[] newPositions = new Vector2[] { Input.GetTouch(0).position, Input.GetTouch(1).position };
 
-                if (!wasZoomingLastFrame)
+                if (!wasZoomingLastFrame )
                 {
                     lastZoomPositions = newPositions;
                     wasZoomingLastFrame = true;
@@ -72,14 +72,15 @@ public class CameraHandler : MonoBehaviour
                 {
                     // Zoom based on the distance between the new positions compared to the 
                     // distance between the previous positions.
+                    
+                        float newDistance = Vector2.Distance(newPositions[0], newPositions[1]);
+                        float oldDistance = Vector2.Distance(lastZoomPositions[0], lastZoomPositions[1]);
+                        float offset = newDistance - oldDistance;
 
-                    float newDistance = Vector2.Distance(newPositions[0], newPositions[1]);
-                    float oldDistance = Vector2.Distance(lastZoomPositions[0], lastZoomPositions[1]);
-                    float offset = newDistance - oldDistance;
+                        ZoomCamera(offset, ZoomSpeedTouch);
 
-                    ZoomCamera(offset, ZoomSpeedTouch);
-
-                    lastZoomPositions = newPositions;
+                        lastZoomPositions = newPositions;
+                    
                 }
                 break;
 
