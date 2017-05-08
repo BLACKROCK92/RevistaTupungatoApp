@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 482f63b0ced86a3439c384a26b0d1ca2
+timeCreated: 1494020418
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Akzidenz-Grotesk BQ Condensed
+  fontNames:
+  - Akzidenz-Grotesk BQ Condensed
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

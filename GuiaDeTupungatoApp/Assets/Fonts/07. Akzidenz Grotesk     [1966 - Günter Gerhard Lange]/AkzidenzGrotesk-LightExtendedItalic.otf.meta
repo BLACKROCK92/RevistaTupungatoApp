@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 2d20b945b4726d749a4e3f3a163f8e52
+timeCreated: 1494020418
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Akzidenz-Grotesk BQ Light Exten
+  fontNames:
+  - Akzidenz-Grotesk BQ Light Exten
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

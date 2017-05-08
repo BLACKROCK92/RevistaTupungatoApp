@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: c52d3ee0f0ab9fc40af0afe6a0461f44
+timeCreated: 1494020419
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Akzidenz-Grotesk BQ Super
+  fontNames:
+  - Akzidenz-Grotesk BQ Super
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

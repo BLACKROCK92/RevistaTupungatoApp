@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 385893526e374a54bbd1c3d3c451d5d5
+timeCreated: 1494020418
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Akzidenz-Grotesk BQ Extra Conde
+  fontNames:
+  - Akzidenz-Grotesk BQ Extra Conde
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 2d2b4047d82b2f24cb7858f1c75820ad, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

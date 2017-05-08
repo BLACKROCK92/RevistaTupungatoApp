@@ -4,12 +4,12 @@ using System.Collections;
 public class CameraHandler : MonoBehaviour
 {
 
-    private static readonly float PanSpeed = 10f;
-    private static readonly float ZoomSpeedTouch = 0.01f;
+    private static readonly float PanSpeed = 7f;
+    private static readonly float ZoomSpeedTouch = 0.003f;
     private static readonly float ZoomSpeedMouse = 0.5f;
 
-    private static readonly float[] BoundsX = new float[] { -0.3f, 0.3f };
-    private static readonly float[] BoundsY = new float[] { -1.5f, 1.5f };
+    private static readonly float[] BoundsX = new float[] { 346f, 350f };
+    private static readonly float[] BoundsY = new float[] { 712f, 720f };
     private static readonly float[] ZoomBounds = new float[] { 1f, 5f };
 
     private Camera cam;
@@ -20,9 +20,16 @@ public class CameraHandler : MonoBehaviour
     private bool wasZoomingLastFrame; // Touch mode only
     private Vector2[] lastZoomPositions; // Touch mode only
 
+    public GameObject RevistaObj;
+    public Transform BackgroundTransform;
+    float smoothTime = 0.2f;
+    private Vector3 velocity = Vector3.zero;
+    private Vector3 InitialPosition;
+
     void Awake()
     {
         cam = GetComponent<Camera>();
+        InitialPosition = new Vector3(348f, 716f, -10f);
     }
 
     void Update()
@@ -53,7 +60,7 @@ public class CameraHandler : MonoBehaviour
                     lastPanPosition = touch.position;
                     panFingerId = touch.fingerId;
                 }
-                else if (touch.fingerId == panFingerId && touch.phase == TouchPhase.Moved )
+                else if (touch.fingerId == panFingerId && touch.phase == TouchPhase.Moved && cam.orthographicSize < 3f)
                 {
                     PanCamera(touch.position);
                 }
@@ -63,7 +70,7 @@ public class CameraHandler : MonoBehaviour
 
                 Vector2[] newPositions = new Vector2[] { Input.GetTouch(0).position, Input.GetTouch(1).position };
 
-                if (!wasZoomingLastFrame )
+                if (!wasZoomingLastFrame)
                 {
                     lastZoomPositions = newPositions;
                     wasZoomingLastFrame = true;
@@ -72,15 +79,22 @@ public class CameraHandler : MonoBehaviour
                 {
                     // Zoom based on the distance between the new positions compared to the 
                     // distance between the previous positions.
-                    
-                        float newDistance = Vector2.Distance(newPositions[0], newPositions[1]);
-                        float oldDistance = Vector2.Distance(lastZoomPositions[0], lastZoomPositions[1]);
-                        float offset = newDistance - oldDistance;
 
+                    float newDistance = Vector2.Distance(newPositions[0], newPositions[1]);
+                    float oldDistance = Vector2.Distance(lastZoomPositions[0], lastZoomPositions[1]);
+                    float offset = newDistance - oldDistance;
+
+                    if (RevistaObj.activeSelf)
+                    {
                         ZoomCamera(offset, ZoomSpeedTouch);
+                    }
+                    else
+                    {
+                        cam.orthographicSize = ZoomBounds[1];
+                        cam.transform.position = InitialPosition;
+                    }
+                    //lastZoomPositions = newPositions;
 
-                        lastZoomPositions = newPositions;
-                    
                 }
                 break;
 
@@ -105,14 +119,22 @@ public class CameraHandler : MonoBehaviour
 
         // Check for scrolling to zoom the camera
         float scroll = Input.GetAxis("Mouse ScrollWheel");
-        ZoomCamera(scroll, ZoomSpeedMouse);
+        if (RevistaObj.activeSelf)
+        {
+            ZoomCamera(scroll, ZoomSpeedMouse);
+        }
+        else
+        {
+            cam.orthographicSize = ZoomBounds[1];
+            cam.transform.position = InitialPosition;
+        }
     }
 
     void PanCamera(Vector3 newPanPosition)
     {
         // Determine how much to move the camera
         Vector3 offset = cam.ScreenToViewportPoint(lastPanPosition - newPanPosition);
-        Vector3 move = new Vector3(offset.x * PanSpeed, offset.y * PanSpeed,0);
+        Vector3 move = new Vector3(offset.x * PanSpeed, offset.y * PanSpeed, 0);
 
         // Perform the movement
         transform.Translate(move, Space.World);
@@ -136,9 +158,17 @@ public class CameraHandler : MonoBehaviour
 
         cam.orthographicSize = Mathf.Clamp(cam.orthographicSize - (offset * speed), ZoomBounds[0], ZoomBounds[1]);
 
-        if (cam.orthographicSize == ZoomBounds[1]) {
+        if (cam.orthographicSize >= 4f && cam.transform.position != InitialPosition)
+        {
 
-            cam.transform.position = new Vector3 (0f, 0f, -10f);
+            cam.transform.position = InitialPosition;
+            cam.orthographicSize = ZoomBounds[1];
         }
+    }
+
+    private void FixedUpdate()
+    {
+        //BackgroundTransform.position = this.transform.position - new Vector3(0f, 0f, transform.position.z);
+        BackgroundTransform.position = Vector3.SmoothDamp(BackgroundTransform.transform.position, transform.position - new Vector3(0f, 0f, transform.position.z), ref velocity, smoothTime);
     }
 }

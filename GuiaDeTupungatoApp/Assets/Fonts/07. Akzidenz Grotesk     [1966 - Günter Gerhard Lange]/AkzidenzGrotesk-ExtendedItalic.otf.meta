@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: 8a710628afc320c45b1b99c6eb24fbbd
+timeCreated: 1494020419
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Akzidenz-Grotesk BQ Extended
+  fontNames:
+  - Akzidenz-Grotesk BQ Extended
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 46a4db8576552ef46978940218f9c76e, type: 3}
+  - {fileID: 12800000, guid: 16782fa9faf1eb14887a9094fd1583cb, type: 3}
+  - {fileID: 12800000, guid: 4e362feb571f73e40a2057fe9e9b07dc, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

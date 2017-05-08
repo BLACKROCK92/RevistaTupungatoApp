@@ -42,6 +42,7 @@ public class ControladorDePantallas : MonoBehaviour
         Revista.SetActive(true);
         Destacados.SetActive(false);
         Contacto.SetActive(false);
+        DestacadoIndividual.SetActive(false);
     }
 
     public void MostrarDestacados()
@@ -49,6 +50,7 @@ public class ControladorDePantallas : MonoBehaviour
         Revista.SetActive(false);
         Destacados.SetActive(true);
         Contacto.SetActive(false);
+        DestacadoIndividual.SetActive(false);
     }
 
     public void MostrarContacto()
@@ -56,6 +58,7 @@ public class ControladorDePantallas : MonoBehaviour
         Revista.SetActive(false);
         Destacados.SetActive(false);
         Contacto.SetActive(true);
+        DestacadoIndividual.SetActive(false);
     }
     public void RegresarADestacados()
     {
@@ -69,7 +72,7 @@ public class ControladorDePantallas : MonoBehaviour
         Revista.SetActive(false);
         Destacados.SetActive(false);
         Contacto.SetActive(false);
-        Header.SetActive(false);
+        //Header.SetActive(false);
         DestacadoIndividual.SetActive(true);
         switch (destacadonro) {
             case 0:

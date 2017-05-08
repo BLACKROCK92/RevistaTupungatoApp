@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 6a6f2d38e2d76624b8617d4d420ce26c
+timeCreated: 1494020418
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Akzidenz-Grotesk BQ Light Conde
+  fontNames:
+  - Akzidenz-Grotesk BQ Light Conde
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 4aa6d9729a2974849bfb71a0fa33659b, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
