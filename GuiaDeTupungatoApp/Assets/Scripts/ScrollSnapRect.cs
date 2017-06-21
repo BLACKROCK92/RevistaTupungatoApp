@@ -72,7 +72,7 @@ public class ScrollSnapRect : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
         } else if (!_scrollRectComponent.horizontal && _scrollRectComponent.vertical) {
             _horizontal = false;
         } else {
-            Debug.LogWarning("Confusing setting of horizontal/vertical direction. Default set to horizontal.");
+            //Debug.LogWarning("Confusing setting of horizontal/vertical direction. Default set to horizontal.");
             _horizontal = true;
         }
 
