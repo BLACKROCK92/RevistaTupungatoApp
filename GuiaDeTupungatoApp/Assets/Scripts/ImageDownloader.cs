@@ -5,12 +5,13 @@ using LitJson;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using System;
+using System.Collections.Generic;
 
 public class ImageDownloader : MonoBehaviour
 {
     #region Atributos
     [SerializeField]
-    Image[] contents;
+    List<Image> contents = new List<Image>();
     [SerializeField]
     Slider progressBar;
     [SerializeField]
@@ -44,23 +45,19 @@ public class ImageDownloader : MonoBehaviour
         {
             if (i < 10)
             {
-                url = "http://www.laguiadetupungato.com/img/0" + i + ".jpg";
+                url = "http://www.laguiadetupungato.com/img/Revista/0" + i + ".jpg";
             }
             else
             {
-                url = "http://www.laguiadetupungato.com/img/" + i + ".jpg";
+                url = "http://www.laguiadetupungato.com/img/Revista/" + i + ".jpg";
             }
             //---------------------------------------------------------------------
             WWW imglink = new WWW(url);
             if (imglink.error == null)
             {
                 yield return imglink;
-                //Texture2D texture = new Texture2D(1, 1);
-                //imglink.LoadImageIntoTexture(texture);
-                //Sprite spr = Sprite.Create(imglink.texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
-                //contents[i - 1].sprite = spr;
-                imglink.LoadImageIntoTexture(contents[i-1].sprite.texture);
-                progress = (i * 100) / contents.Length;
+                imglink.LoadImageIntoTexture(contents[i - 1].sprite.texture);
+                progress = (i * 100) / contents.Count;
                 progressBar.value = progress;
                 i++;
             }
@@ -92,6 +89,27 @@ public class ImageDownloader : MonoBehaviour
     //--------------------------------------------------------------------------------------------------------------------------
     public IEnumerator ComprobarFechaCR()
     {
+        int pags = 0;
+        WWW numeroDePaginas = new WWW("http://www.laguiadetupungato.com/Paginas.js");
+        yield return numeroDePaginas;
+        if (numeroDePaginas.error == null)
+        {
+
+            JsonData dataPags = JsonMapper.ToObject(numeroDePaginas.text);
+            pags = int.Parse(dataPags["data"]["Paginas"].ToString());
+            Debug.Log("Pags: " + pags);
+            Debug.Log("Contents.Count: " + contents.Count);
+        }
+        for (int j = pags; j < contents.Count; j++)
+        {
+            Destroy(contents[j].gameObject);
+        }
+        if (contents.Count > pags)
+        {
+            contents.RemoveRange(pags, contents.Count - pags);
+
+        }
+        //--------------------------------------------------------------------------------------
         CargarFechaLocal();
         yield return StartCoroutine(traerFecha());
         if (!comprobarFecha())
@@ -109,13 +127,13 @@ public class ImageDownloader : MonoBehaviour
     //--------------------------------------------------------------------------------------------------------------------------
     public IEnumerator traerFecha()
     {
+
         WWW www = new WWW("http://www.laguiadetupungato.com/Fecha.js");
         if (www.error == null)
         {
             yield return www;
             JsonData data = JsonMapper.ToObject(www.text);
             fecha = data["data"]["Fecha"].ToString();
-            //GuardarFechaLocal();
         }
         else
         {
