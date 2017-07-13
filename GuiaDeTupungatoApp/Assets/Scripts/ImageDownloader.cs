@@ -13,6 +13,8 @@ public class ImageDownloader : MonoBehaviour
     [SerializeField]
     List<Image> contents = new List<Image>();
     [SerializeField]
+    List<Image> contentDestacados = new List<Image>();
+    [SerializeField]
     Slider progressBar;
     [SerializeField]
     GameObject loadingTxt;
@@ -30,15 +32,17 @@ public class ImageDownloader : MonoBehaviour
     string fechaLocal = "";
     [SerializeField]
     bool fechaCorrecta;
+    string url2 = "";
     #endregion
     //-----------------------------------------------------------------------------------------------------------------
     private void Start()
     {
         ContinueBtn.enabled = false;
         StartCoroutine(ComprobarFechaCR());
+        StartCoroutine(DescargarDestacados());
     }
     //------------------------------------------------------------------------------------------------------------------------
-    IEnumerator traerImgs()
+    IEnumerator DescargarRevista()
     {
         int i = 1;
         foreach (Image img in contents)
@@ -97,8 +101,8 @@ public class ImageDownloader : MonoBehaviour
 
             JsonData dataPags = JsonMapper.ToObject(numeroDePaginas.text);
             pags = int.Parse(dataPags["data"]["Paginas"].ToString());
-            Debug.Log("Pags: " + pags);
-            Debug.Log("Contents.Count: " + contents.Count);
+            //Debug.Log("Pags: " + pags);
+            //Debug.Log("Contents.Count: " + contents.Count);
         }
         for (int j = pags; j < contents.Count; j++)
         {
@@ -112,17 +116,18 @@ public class ImageDownloader : MonoBehaviour
         //--------------------------------------------------------------------------------------
         CargarFechaLocal();
         yield return StartCoroutine(traerFecha());
-        if (!comprobarFecha())
-        {
-            StartCoroutine(traerImgs());
-        }
-        else
-        {
-            if (fechaCorrecta)
-            {
-                activarSiguienteMenu();
-            }
-        }
+        //if (!comprobarFecha())
+        //{
+        //    StartCoroutine(traerImgs());
+        //}
+        //else
+        //{
+        //    if (fechaCorrecta)
+        //    {
+        //        activarSiguienteMenu();
+        //    }
+        //}
+        StartCoroutine(DescargarRevista());
     }
     //--------------------------------------------------------------------------------------------------------------------------
     public IEnumerator traerFecha()
@@ -175,6 +180,32 @@ public class ImageDownloader : MonoBehaviour
         bf.Serialize(file, fechaInstancia);
         file.Close();
     }
+    //--------------------------------------------------------------------------------------------------------------------------
+    public void CargarDestacados()
+    {
+        StartCoroutine(DescargarDestacados());
+    }
+    //--------------------------------------------------------------------------------------------------------------------------
+    public IEnumerator DescargarDestacados()
+    {
+        int i = 1;
+        foreach (Image img in contentDestacados)
+        {
+            url2 = "http://laguiadetupungato.com/img/Destacados/Destacados-" + i + ".jpg";
+            WWW destWWW = new WWW(url2);
+            if (destWWW.error == null)
+            {
+                yield return destWWW;
+                destWWW.LoadImageIntoTexture(img.sprite.texture);
+            }
+            else
+            {
+                Debug.LogError("Error en el www: " + destWWW.error);
+            }
+            i++;
+        }
+    }
+
 }
 
 [Serializable]
